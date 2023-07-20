@@ -21,7 +21,7 @@ function ListItem(props) {
         )}
       </div>
       <div
-        className="todo-text col-10"
+        className="todo-text col-10 no-curor"
         style={props.isCompleted ? completedStyle : null}
       >
         {props.text}

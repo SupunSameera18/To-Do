@@ -4,10 +4,13 @@ import ListItem from "./components/ListItem";
 import Greet from "./components/Greet";
 import AddItem from "./components/AddItem";
 import Popup from "./components/Popup";
+import Alert from "./components/Alert";
 
 function App() {
   const [todo, setTodo] = useState([]);
   const [popup, setPopup] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
     fetchTodos();
@@ -15,6 +18,13 @@ function App() {
 
   function showPopup() {
     setPopup(!popup);
+  }
+
+  function showAlert() {
+    setAlert(true);
+    setTimeout(() => {
+      setAlert(false);
+    }, 2000);
   }
 
   const fetchTodos = () => {
@@ -33,9 +43,11 @@ function App() {
     };
     axios
       .post("http://localhost:4000/todos/new", todoItem)
-      .then((res) => {
-        console.log("Todo added successfully:", res.data);
+      .then(() => {
+        console.log("Todo added successfully");
         fetchTodos();
+        setAlertMessage("Item added successfully!");
+        showAlert();
       })
       .catch((err) => console.error("Error occurred: " + err));
   };
@@ -60,14 +72,19 @@ function App() {
   const deleteTodo = (id) => {
     axios
       .delete("http://localhost:4000/todos/delete/" + id)
-      .then(() => fetchTodos())
+      .then(() => {
+        fetchTodos();
+        console.log("Todo deleted successfully");
+        setAlertMessage("Item deleted successfully!");
+        showAlert();
+      })
       .catch((err) => console.error("Error occured: " + err));
   };
 
   return (
     <div className="mt-5">
       <Greet />
-      <h2 className="text-center">Here is your todo list.</h2>
+      <h2 className="text-center no-curor">Here is your todo list.</h2>
       <div className="todo-list mx-auto mt-5">
         {todo.map((item) => (
           <ListItem
@@ -80,8 +97,9 @@ function App() {
           />
         ))}
       </div>
-      <AddItem handleAdd={() => showPopup()} />
+      <AddItem handleAdd={showPopup} />
       {popup && <Popup handleClose={showPopup} handleAdd={addTodo} />}
+      {alert && <Alert message={alertMessage} />}
     </div>
   );
 }

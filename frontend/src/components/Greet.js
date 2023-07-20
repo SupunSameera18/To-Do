@@ -10,7 +10,7 @@ function Greet() {
   } else {
     greet = "Evening";
   }
-  return <h1 className="text-center">Hello, Good {greet}!</h1>;
+  return <h1 className="text-center no-curor">Hello, Good {greet}!</h1>;
 }
 
 export default Greet;
