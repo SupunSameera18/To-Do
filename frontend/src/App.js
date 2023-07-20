@@ -27,6 +27,19 @@ function App() {
       .catch((err) => console.error("Error occured: " + err));
   };
 
+  const addTodo = (todo) => {
+    const todoItem = {
+      text: todo,
+    };
+    axios
+      .post("http://localhost:4000/todos/new", todoItem)
+      .then((res) => {
+        console.log("Todo added successfully:", res.data);
+        fetchTodos();
+      })
+      .catch((err) => console.error("Error occurred: " + err));
+  };
+
   const completeTodo = (id) => {
     axios
       .patch("http://localhost:4000/todos/complete/" + id)
@@ -44,17 +57,11 @@ function App() {
       .catch((err) => console.error("Error occured: " + err));
   };
 
-  const addTodo = (todo) => {
-    const todoItem = {
-      text: todo,
-    };
+  const deleteTodo = (id) => {
     axios
-      .post("http://localhost:4000/todos/new", todoItem)
-      .then((res) => {
-        console.log("Todo added successfully:", res.data);
-        fetchTodos();
-      })
-      .catch((err) => console.error("Error occurred: " + err));
+      .delete("http://localhost:4000/todos/delete/" + id)
+      .then(() => fetchTodos())
+      .catch((err) => console.error("Error occured: " + err));
   };
 
   return (
@@ -69,6 +76,7 @@ function App() {
             isCompleted={item.status}
             text={item.text}
             onComplete={() => completeTodo(item._id)}
+            onDelete={() => deleteTodo(item._id)}
           />
         ))}
       </div>

@@ -21,7 +21,10 @@ function ListItem(props) {
       >
         {props.text}
       </div>
-      <div className="delete-icon col-1">
+      <div
+        className="delete-icon col-1"
+        onClick={() => props.onDelete(props.id)}
+      >
         <DeleteIcon />
       </div>
     </div>

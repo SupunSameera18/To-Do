@@ -38,9 +38,11 @@ app.post("/todos/new", (req, res) => {
 
 app.delete("/todos/delete/:id", (req, res) => {
   Todo.findByIdAndDelete(req.params.id)
-    .then(() => console.log("Item deleted successfully"))
+    .then((result) => {
+      console.log("Item deleted successfully");
+      res.send(result);
+    })
     .catch((err) => console.error("Error occured: " + err));
-  res.redirect("/todos");
 });
 
 app.patch("/todos/complete/:id", (req, res) => {
