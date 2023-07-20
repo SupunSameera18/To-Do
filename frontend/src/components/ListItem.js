@@ -1,5 +1,6 @@
 import React from "react";
 import CheckIcon from "./CheckIcon";
+import UncheckIcon from "./UncheckIcon";
 import DeleteIcon from "./DeleteIcon";
 
 function ListItem(props) {
@@ -13,7 +14,11 @@ function ListItem(props) {
   return (
     <div className="todo-item d-flex row">
       <div className="check-icon col-1" onClick={() => completeTodo(props.id)}>
-        <CheckIcon isCompleted={props.isCompleted} />
+        {props.isCompleted ? (
+          <CheckIcon isCompleted={props.isCompleted} />
+        ) : (
+          <UncheckIcon isCompleted={props.isCompleted} />
+        )}
       </div>
       <div
         className="todo-text col-10"
