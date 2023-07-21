@@ -2,10 +2,8 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "To Do App - MERN (API)",
-  "main": "index.js",
-  "scripts": {
-    "start": "server.js"
-  },
+  "main": "server.js",
+  "scripts": {},
   "author": "Supun Sameera",
   "license": "ISC",
   "dependencies": {
