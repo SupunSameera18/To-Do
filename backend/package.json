@@ -4,7 +4,7 @@
   "description": "To Do App - MERN (API)",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "server.js"
   },
   "author": "Supun Sameera",
   "license": "ISC",
