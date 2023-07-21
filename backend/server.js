@@ -2,7 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const dotenv = require("dotenv");
 const Todo = require("./models/Todo");
+
+dotenv.config();
+
+const dbConnectionString = process.env.DB_URI;
+const port = process.env.PORT;
 
 const app = express();
 
@@ -11,7 +17,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 mongoose
-  .connect("mongodb://0.0.0.0:27017/To-Do-App")
+  .connect(dbConnectionString)
   .then(() => console.log("Connected to database successfully"))
   .catch((err) => console.error("Error occured: " + err));
 
@@ -58,6 +64,6 @@ app.patch("/todos/complete/:id", (req, res) => {
     .catch((err) => console.error("Error occured: " + err));
 });
 
-app.listen("4000", () => {
-  console.log("Server started on port 4000");
+app.listen(port, () => {
+  console.log("Server started on port " + port);
 });
