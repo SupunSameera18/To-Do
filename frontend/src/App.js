@@ -86,6 +86,11 @@ function App() {
       <Greet />
       <h2 className="text-center no-curor">Here is your todo list.</h2>
       <div className="todo-list mx-auto mt-5">
+        {todo.length === 0 && (
+          <p className="todo-empty no-curor">
+            Nothing here yet. Use the + button to add your first item.
+          </p>
+        )}
         {todo.map((item) => (
           <ListItem
             key={item._id}
